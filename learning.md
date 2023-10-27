@@ -138,6 +138,12 @@ public class ReverseStringWithStreams {
 - Not C++
 - Not Rust
 
+Useful beyond C/Rust because of its...
+
+## Standard Library
+
+[https://pkg.go.dev/std](https://pkg.go.dev/std)
+
 ## Weird, but cool error-handling and return types
 
 ```
