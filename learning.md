@@ -30,7 +30,7 @@ func ExampleUppercase() {
 
 ### Potential for Highly Modular Code and Easily Swappable Interfaces
 
-[Hair Out of Drain](hair_out_of_drain.jpg)
+![Hair Out of Drain](hair_out_of_drain.jpg)
 
 #### Easy Open-Source Use and Contribution
 
