@@ -80,3 +80,57 @@ C:.
 ### Old: (cmd | pkg | vendor)
 
 ## CI/CD
+
+#### Sample Dockerfile
+
+```
+FROM golang:1.19 as builder
+
+WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build ./cmd/appName -o appName .
+
+FROM alpine:latest
+WORKDIR /root/
+COPY --from=builder /app/appName .
+CMD ["./appName"]
+
+```
+
+### GH Actions
+
+#### Basic Build
+
+```
+name: Go_Build_Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: <runner>
+    steps:
+
+    - name: Set up Go 1.19
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.19
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@<version tag or hash>
+
+    - name: Test
+      run: go test -v <path to test stuff>
+
+    - name: Build
+      run: go build -v <path to build stuff>
+
+```
