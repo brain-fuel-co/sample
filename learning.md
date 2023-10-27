@@ -167,7 +167,7 @@ https://github.com/Adron/cobra-cli-samples.git
 ### Recommended: cmd | pkg/bases | pkg/components
 
 ```
-C:.
+.
 │   .gitignore
 │   go.mod
 │   go.sum
