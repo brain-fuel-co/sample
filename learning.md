@@ -36,6 +36,102 @@ func ExampleUppercase() {
 
 ### Composition, not Inheritance -> Built into Language
 
+## Weaknesses / Gotchas
+
+### Implementation of Generics
+
+```
+package result
+
+type Result[T any] struct {
+	right T
+	left  error
+}
+
+type MonadicFunction[T any, U any] func(T) *Result[U]
+
+func (result *Result[T]) Right() T {
+	return result.right
+}
+
+func (result *Result[T]) Left() error {
+	return result.left
+}
+
+func Return[T any](a T) *Result[T] {
+	return &Result[T]{right: a}
+}
+
+func ErrorResult[T any](e error) *Result[T] {
+	return &Result[T]{left: e}
+}
+
+func Bind[T any, U any](a *Result[T], f MonadicFunction[T, U]) *Result[U] {
+	if a.Left() != nil {
+		return &Result[U]{left: a.Left()}
+	} else {
+		return f(a.Right())
+	}
+}
+
+// FILE BREAK
+
+type SResult result.Result[string]
+
+func (r *SResult) Bind(f result.MonadicFunction[string, string]) *SResult {
+	returnedResult := result.Bind((*result.Result[string])(r), f)
+	return (*SResult)(returnedResult)
+}
+```
+
+```
+func doThing(name) string {
+finalResult := (*SResult)(result.Return(name)).
+	Bind(createElementPath).
+	Bind(mkdir).
+	Bind(writeInterfaceFile).
+	Bind(getDirPath).
+    // Bind as many things as you want ...
+    // ...
+return (*result.Result[string])(finalResult).Left()
+}
+
+// VERSUS
+
+func doOtherThing(name) string {
+	foo := result.Return("bar")
+	bar := Bind(foo, barFunction)
+	baz := Bind(bar, bazFunction)
+    // Bind as many things as you want ...
+    // ...
+	return baz.Left()
+}
+
+```
+
+COMPARE TO JAVA
+
+```
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class ReverseStringWithStreams {
+    public static void main(String[] args) {
+        String input = "Hello, World!";
+        String reversed = reverse(input);
+        System.out.println(reversed);
+    }
+
+    public static String reverse(String input) {
+        return IntStream.rangeClosed(1, input.length())
+                .mapToObj(i -> input.charAt(input.length() - i))
+                .map(String::valueOf)
+                .collect(Collectors.joining());
+    }
+}
+
+```
+
 ## What niche does Go actually fill?
 
 - Not Java/C#/Kotlin
