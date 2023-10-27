@@ -7,7 +7,7 @@
 ### Doctests (similar to Python / Elixir)
 
 ```
-package main
+package foo
 
 import (
     "fmt"
