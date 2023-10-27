@@ -8,13 +8,13 @@
 
 ## Weird, but cool error-handling and return types
 
-'''
+```
 something, somethingErr := doSomething(someParam1, someParam2)
 if somethingErr != nil {
 	handleErr(somethingErr)
 }
 something.doOtherThing()
-'''
+```
 
 ## Making CLI Apps: Cobra | Config Management: Viper
 
@@ -28,6 +28,7 @@ https://github.com/Adron/cobra-cli-samples.git
 
 ### Recommended: cmd | pkg/bases | pkg/components
 
+```
 C:.
 │   .gitignore
 │   go.mod
@@ -72,6 +73,7 @@ C:.
             └───internal
                     core.go
                     core_test.go
+```
 
 ### Large-Project Standard: (cmd | pkg)
 
