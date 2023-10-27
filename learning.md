@@ -1,5 +1,41 @@
 # Go-verview
 
+## Why do I care enough to present this (and maybe why one might care enough to pay attention)
+
+### Relatively Straightforward -> Less time reading code; more time writing code.
+
+### Doctests (similar to Python / Elixir)
+
+```
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+func Uppercase(s string) string {
+    return strings.ToUpper(s)
+}
+
+func ExampleUppercase() {
+    fmt.Println(Uppercase("hello"))
+    // Output: HELLO
+}
+
+```
+-> Example Function gives Runnable Code (see [https://pkg.go.dev](https://pkg.go.dev))
+
+### Quick, Reproducible Builds
+
+### Potential for Highly Modular Code and Easily Swappable Interfaces
+
+#### Easy Open-Source Use and Contribution
+
+#### Code Reusability
+
+### Composition, not Inheritance -> Built into Language
+
 ## What niche does Go actually fill?
 
 - Not Java/C#/Kotlin
@@ -134,3 +170,9 @@ jobs:
       run: go build -v <path to build stuff>
 
 ```
+
+## Future Research
+
+### Bazel/Gazelle
+
+### Gradle/Maven/Mix/Leiningen/NPM Equivalent
